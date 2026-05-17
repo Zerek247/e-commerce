@@ -3,10 +3,11 @@ import './globals.css';
 import { CartProvider } from '@/lib/cart-context';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CartDrawer from '@/components/CartDrawer';
 
 export const metadata: Metadata = {
-  title: 'Lumière — Soft glow beauty',
-  description: 'Curated beauty essentials in dreamy pastel tones. Clean, modern makeup and skincare for everyday glow.',
+  title: 'Glow Beauty — Reveal your natural beauty',
+  description: 'Luxury beauty essentials crafted with intention. Clean ingredients, timeless design, and shades for every skin.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <CartProvider>
           <Navbar />
+          <CartDrawer />
           <main className="min-h-screen">{children}</main>
           <Footer />
         </CartProvider>

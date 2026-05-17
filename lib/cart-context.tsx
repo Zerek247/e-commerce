@@ -16,6 +16,8 @@ type CartContextType = {
   clearCart: () => void;
   totalItems: number;
   subtotal: number;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -23,24 +25,21 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = typeof window !== 'undefined' ? window.sessionStorage.getItem('lumiere-cart') : null;
+      const saved = typeof window !== 'undefined' ? window.sessionStorage.getItem('glow-cart') : null;
       if (saved) setItems(JSON.parse(saved));
-    } catch (e) {
-      console.error('Could not load cart', e);
-    }
+    } catch (e) { console.error(e); }
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
     try {
-      window.sessionStorage.setItem('lumiere-cart', JSON.stringify(items));
-    } catch (e) {
-      console.error('Could not save cart', e);
-    }
+      window.sessionStorage.setItem('glow-cart', JSON.stringify(items));
+    } catch (e) { console.error(e); }
   }, [items, mounted]);
 
   const addItem = (product: Product) => {
@@ -53,6 +52,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
       return [...prev, { product, quantity: 1 }];
     });
+    setIsOpen(true);
   };
 
   const removeItem = (id: string) => {
@@ -61,9 +61,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) return removeItem(id);
-    setItems(prev =>
-      prev.map(i => (i.product.id === id ? { ...i, quantity } : i))
-    );
+    setItems(prev => prev.map(i => (i.product.id === id ? { ...i, quantity } : i)));
   };
 
   const clearCart = () => setItems([]);
@@ -72,7 +70,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const subtotal = items.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, subtotal }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, totalItems, subtotal, isOpen, setIsOpen }}>
       {children}
     </CartContext.Provider>
   );

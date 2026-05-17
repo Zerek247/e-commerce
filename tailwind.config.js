@@ -7,42 +7,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: '#FAF6F2',
-        rose: {
-          50: '#FBF1F1',
-          100: '#F8E5E5',
-          200: '#F4D9DD',
-          300: '#EBC0C8',
-          400: '#D88B9A',
-          500: '#C4737F',
-          600: '#A55A66',
+        ink: {
+          DEFAULT: '#0A0A0A',
+          soft: '#1A1A1A',
+          mid: '#3D3D3D',
+          light: '#6B6B6B',
         },
-        mauve: {
-          100: '#EDE4DC',
-          200: '#D6C5B8',
-          500: '#8B6B73',
-          700: '#6B4A52',
-          900: '#4A2F36',
+        nude: {
+          50: '#FBF8F5',
+          100: '#F5EFE8',
+          200: '#EBE0D3',
+          300: '#DDC9B5',
+          400: '#C9AB8E',
+          500: '#A8876A',
         },
-        peach: {
-          100: '#F0E4D8',
-          200: '#E8C4A0',
-          400: '#D9A578',
+        pink: {
+          50: '#FDF6F4',
+          100: '#FAE9E6',
+          200: '#F5D3CD',
+          300: '#EDB4AB',
+          400: '#E08B7E',
+          500: '#C66A5C',
         },
-        lavender: {
-          100: '#E8E0EC',
-          200: '#D4C5DE',
-          400: '#C5B3D1',
-        },
-        sage: {
-          100: '#DCE8E0',
-          200: '#C5D9CC',
-          400: '#B8D1C0',
-        },
+        bone: '#FAF7F2',
       },
       fontFamily: {
-        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"Inter"', 'system-ui', 'sans-serif'],
+      },
+      letterSpacing: {
+        widest: '0.25em',
       },
     },
   },

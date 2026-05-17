@@ -4,57 +4,67 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
-import { ShoppingBag } from 'lucide-react';
+import { Star } from 'lucide-react';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
 
   const badgeColors: Record<string, string> = {
-    NEW: 'bg-mauve-700 text-white',
-    BESTSELLER: 'bg-rose-400 text-white',
-    LIMITED: 'bg-peach-400 text-white',
-  };
-
-  const bgColors: Record<string, string> = {
-    lips: 'bg-rose-100',
-    eyes: 'bg-lavender-100',
-    face: 'bg-peach-100',
-    skincare: 'bg-sage-100',
+    NEW: 'bg-ink text-white',
+    BESTSELLER: 'bg-nude-300 text-ink',
+    LIMITED: 'bg-pink-400 text-white',
+    SALE: 'bg-pink-500 text-white',
   };
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border border-mauve-100 hover:shadow-lg transition-all duration-300">
+    <div className="group">
       <Link href={`/products/${product.id}`}>
-        <div className={`relative aspect-square ${bgColors[product.category]} overflow-hidden`}>
+        <div className="relative aspect-[4/5] bg-nude-50 overflow-hidden mb-4">
           <Image
             src={product.image}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
           />
           {product.badge && (
-            <span className={`absolute top-3 left-3 text-[10px] tracking-wider px-3 py-1 rounded-full ${badgeColors[product.badge]}`}>
+            <span className={`absolute top-4 left-4 text-[10px] tracking-widest uppercase px-2.5 py-1 ${badgeColors[product.badge]}`}>
               {product.badge}
             </span>
           )}
+          <button
+            onClick={(e) => { e.preventDefault(); addItem(product); }}
+            className="absolute bottom-0 left-0 right-0 bg-ink text-white py-3 text-[11px] tracking-widest uppercase font-medium translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+          >
+            Quick add
+          </button>
         </div>
       </Link>
 
-      <div className="p-4">
-        <div className="text-xs text-mauve-500 mb-1">{product.categoryLabel}</div>
+      <div className="space-y-1.5">
+        <p className="eyebrow text-[10px]">{product.categoryLabel}</p>
         <Link href={`/products/${product.id}`}>
-          <h3 className="text-base text-mauve-700 font-medium mb-1 hover:underline">{product.name}</h3>
+          <h3 className="font-display text-lg text-ink hover:underline leading-snug">{product.name}</h3>
         </Link>
-        <div className="flex items-center justify-between mt-3">
-          <span className="text-mauve-700 font-medium">${product.price.toFixed(2)}</span>
-          <button
-            onClick={() => addItem(product)}
-            className="opacity-0 group-hover:opacity-100 transition-opacity bg-mauve-700 hover:bg-mauve-900 text-white p-2 rounded-full"
-            aria-label="Add to cart"
-          >
-            <ShoppingBag size={14} />
-          </button>
+        {product.rating && (
+          <div className="flex items-center gap-1.5">
+            <div className="flex">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={11} className={i < Math.round(product.rating!) ? 'fill-ink text-ink' : 'text-nude-300'} />
+              ))}
+            </div>
+            <span className="text-[11px] text-ink-light">({product.reviewCount})</span>
+          </div>
+        )}
+        <div className="flex items-baseline gap-2 pt-1">
+          {product.originalPrice ? (
+            <>
+              <span className="text-pink-500 font-medium">${product.price.toFixed(2)}</span>
+              <span className="text-ink-light line-through text-sm">${product.originalPrice.toFixed(2)}</span>
+            </>
+          ) : (
+            <span className="text-ink">${product.price.toFixed(2)}</span>
+          )}
         </div>
       </div>
     </div>

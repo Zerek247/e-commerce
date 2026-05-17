@@ -1,111 +1,228 @@
 'use client';
 
+import { useState, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/lib/cart-context';
-import { Minus, Plus, X, ShoppingBag, ArrowRight } from 'lucide-react';
+import { ChevronLeft, Lock, Minus, Plus, X, ShoppingBag, ArrowRight } from 'lucide-react';
 
-export default function CartPage() {
-  const { items, updateQuantity, removeItem, subtotal } = useCart();
-  const shipping = subtotal >= 50 || subtotal === 0 ? 0 : 6;
-  const total = subtotal + shipping;
+export default function CartCheckoutPage() {
+  const router = useRouter();
+  const { items, updateQuantity, removeItem, subtotal, clearCart } = useCart();
+  const [step, setStep] = useState<'cart' | 'checkout'>('cart');
+  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    email: '', firstName: '', lastName: '',
+    address: '', city: '', zip: '', country: 'United States',
+    cardNumber: '', expiry: '', cvc: '', cardName: '',
+  });
+
+  const shipping = subtotal >= 75 ? 0 : 8;
+  const tax = +(subtotal * 0.08).toFixed(2);
+  const total = +(subtotal + shipping + tax).toFixed(2);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customer: { email: form.email, firstName: form.firstName, lastName: form.lastName },
+          shipping: { address: form.address, city: form.city, zip: form.zip, country: form.country },
+          items: items.map(i => ({ id: i.product.id, name: i.product.name, quantity: i.quantity, price: i.product.price })),
+          subtotal, shippingCost: shipping, tax, total,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        clearCart();
+        router.push(`/checkout/success?order=${data.orderId}`);
+      }
+    } catch (err) {
+      console.error(err);
+      setSubmitting(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
-      <div className="fade-in max-w-2xl mx-auto px-6 py-24 text-center">
-        <div className="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <ShoppingBag size={28} className="text-mauve-700" />
+      <div className="fade-in max-w-2xl mx-auto px-6 py-32 text-center">
+        <div className="w-16 h-16 border border-nude-300 rounded-full flex items-center justify-center mx-auto mb-6">
+          <ShoppingBag size={22} strokeWidth={1.5} className="text-ink-mid" />
         </div>
-        <h1 className="text-4xl text-mauve-700 mb-3">Your bag is empty</h1>
-        <p className="text-mauve-500 mb-8">Discover our pastel essentials and start your collection.</p>
+        <p className="eyebrow mb-4">Empty bag</p>
+        <h1 className="font-display text-4xl md:text-5xl text-ink mb-4">Your bag is empty</h1>
+        <p className="text-ink-mid mb-10">Discover our essentials and start your collection.</p>
         <Link href="/products" className="btn-primary">
-          Shop the collection <ArrowRight size={14} />
+          Shop now <ArrowRight size={14} />
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="fade-in max-w-6xl mx-auto px-6 py-16">
-      <h1 className="text-4xl md:text-5xl text-mauve-700 mb-10">Shopping bag</h1>
+    <div className="fade-in max-w-[1400px] mx-auto px-6 py-12">
+      <button
+        onClick={() => step === 'checkout' ? setStep('cart') : router.back()}
+        className="inline-flex items-center gap-1 text-[11px] uppercase tracking-widest text-ink-mid hover:text-ink mb-6"
+      >
+        <ChevronLeft size={14} /> {step === 'checkout' ? 'Back to bag' : 'Continue shopping'}
+      </button>
+
+      <h1 className="font-display text-4xl md:text-5xl text-ink mb-3">{step === 'cart' ? 'Shopping bag' : 'Checkout'}</h1>
+      <div className="flex gap-2 text-[11px] uppercase tracking-widest text-ink-light mb-10">
+        <span className={step === 'cart' ? 'text-ink' : ''}>01 Bag</span>
+        <span>—</span>
+        <span className={step === 'checkout' ? 'text-ink' : ''}>02 Checkout</span>
+        <span>—</span>
+        <span>03 Confirmation</span>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        <div className="lg:col-span-2 space-y-4">
-          {items.map(item => (
-            <div key={item.product.id} className="flex gap-4 bg-white border border-mauve-100 rounded-2xl p-4">
-              <div className="relative w-24 h-24 bg-rose-100 rounded-xl overflow-hidden flex-shrink-0">
-                <Image src={item.product.image} alt={item.product.name} fill sizes="96px" className="object-cover" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-start gap-3">
-                  <div>
-                    <p className="text-xs text-mauve-500 mb-1">{item.product.categoryLabel}</p>
-                    <Link href={`/products/${item.product.id}`} className="text-mauve-700 font-medium hover:underline">
-                      {item.product.name}
-                    </Link>
+        <div className="lg:col-span-2">
+          {step === 'cart' ? (
+            <div className="space-y-5">
+              {items.map(item => (
+                <div key={item.product.id} className="flex gap-5 pb-5 border-b border-nude-200">
+                  <div className="relative w-24 h-32 bg-nude-50 flex-shrink-0">
+                    <Image src={item.product.image} alt={item.product.name} fill sizes="96px" className="object-cover" />
                   </div>
-                  <button
-                    onClick={() => removeItem(item.product.id)}
-                    className="text-mauve-500 hover:text-mauve-700"
-                    aria-label="Remove"
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
-                <div className="flex justify-between items-center mt-4">
-                  <div className="flex items-center border border-mauve-100 rounded-full">
-                    <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                      className="p-2 text-mauve-700 hover:bg-cream rounded-l-full"
-                      aria-label="Decrease"
-                    >
-                      <Minus size={12} />
-                    </button>
-                    <span className="px-3 text-sm text-mauve-700 min-w-[24px] text-center">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                      className="p-2 text-mauve-700 hover:bg-cream rounded-r-full"
-                      aria-label="Increase"
-                    >
-                      <Plus size={12} />
-                    </button>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex justify-between items-start gap-3 mb-4">
+                      <div>
+                        <p className="eyebrow text-[10px] mb-1">{item.product.categoryLabel}</p>
+                        <Link href={`/products/${item.product.id}`} className="font-display text-lg text-ink hover:underline">
+                          {item.product.name}
+                        </Link>
+                      </div>
+                      <button onClick={() => removeItem(item.product.id)} className="text-ink-light hover:text-ink" aria-label="Remove">
+                        <X size={16} />
+                      </button>
+                    </div>
+                    <div className="flex justify-between items-end">
+                      <div className="flex items-center border border-nude-300">
+                        <button onClick={() => updateQuantity(item.product.id, item.quantity - 1)} className="px-2.5 py-1.5 text-ink hover:bg-nude-50" aria-label="Decrease">
+                          <Minus size={11} />
+                        </button>
+                        <span className="px-3 text-sm min-w-[28px] text-center">{item.quantity}</span>
+                        <button onClick={() => updateQuantity(item.product.id, item.quantity + 1)} className="px-2.5 py-1.5 text-ink hover:bg-nude-50" aria-label="Increase">
+                          <Plus size={11} />
+                        </button>
+                      </div>
+                      <span className="font-display text-lg text-ink">${(item.product.price * item.quantity).toFixed(2)}</span>
+                    </div>
                   </div>
-                  <span className="text-mauve-700 font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
-                  </span>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <form id="checkout-form" onSubmit={handleSubmit} className="space-y-8">
+              <section>
+                <h2 className="font-display text-xl text-ink mb-5">Contact</h2>
+                <Input name="email" type="email" placeholder="Email address" value={form.email} onChange={handleChange} required />
+              </section>
+
+              <section>
+                <h2 className="font-display text-xl text-ink mb-5">Shipping address</h2>
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <Input name="firstName" placeholder="First name" value={form.firstName} onChange={handleChange} required />
+                  <Input name="lastName" placeholder="Last name" value={form.lastName} onChange={handleChange} required />
+                </div>
+                <Input name="address" placeholder="Street address" value={form.address} onChange={handleChange} required />
+                <div className="grid grid-cols-2 gap-3 mt-3">
+                  <Input name="city" placeholder="City" value={form.city} onChange={handleChange} required />
+                  <Input name="zip" placeholder="ZIP / Postal code" value={form.zip} onChange={handleChange} required />
+                </div>
+                <select name="country" value={form.country} onChange={handleChange} className="w-full mt-3 px-4 py-3.5 bg-white border border-nude-300 text-sm text-ink focus:border-ink">
+                  <option>United States</option>
+                  <option>Canada</option>
+                  <option>Mexico</option>
+                  <option>United Kingdom</option>
+                  <option>Other</option>
+                </select>
+              </section>
+
+              <section>
+                <div className="flex items-center justify-between mb-5">
+                  <h2 className="font-display text-xl text-ink">Payment</h2>
+                  <span className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-ink-light"><Lock size={11} /> Simulated</span>
+                </div>
+                <Input name="cardName" placeholder="Name on card" value={form.cardName} onChange={handleChange} required />
+                <Input name="cardNumber" placeholder="Card number (use 4242 4242 4242 4242)" value={form.cardNumber} onChange={handleChange} className="mt-3" required />
+                <div className="grid grid-cols-2 gap-3 mt-3">
+                  <Input name="expiry" placeholder="MM / YY" value={form.expiry} onChange={handleChange} required />
+                  <Input name="cvc" placeholder="CVC" value={form.cvc} onChange={handleChange} required />
+                </div>
+                <p className="text-xs text-ink-light mt-3">This is a school project. No real payments are processed.</p>
+              </section>
+            </form>
+          )}
         </div>
 
-        <div className="bg-white border border-mauve-100 rounded-2xl p-6 h-fit sticky top-24">
-          <h2 className="text-2xl text-mauve-700 mb-5">Order summary</h2>
-          <div className="space-y-3 text-sm text-mauve-500 mb-5 pb-5 border-b border-mauve-100">
-            <div className="flex justify-between">
+        <div className="bg-bone p-7 h-fit lg:sticky lg:top-32">
+          <h2 className="font-display text-2xl text-ink mb-6">Order summary</h2>
+          {step === 'checkout' && (
+            <div className="space-y-3 mb-5 pb-5 border-b border-nude-200 max-h-56 overflow-y-auto">
+              {items.map(item => (
+                <div key={item.product.id} className="flex justify-between text-sm">
+                  <span className="text-ink-mid">
+                    {item.product.name} <span className="text-ink-light">× {item.quantity}</span>
+                  </span>
+                  <span className="text-ink">${(item.product.price * item.quantity).toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="space-y-3 text-sm mb-5">
+            <div className="flex justify-between text-ink-mid">
               <span>Subtotal</span>
-              <span className="text-mauve-700">${subtotal.toFixed(2)}</span>
+              <span className="text-ink">${subtotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-ink-mid">
               <span>Shipping</span>
-              <span className="text-mauve-700">{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+              <span className="text-ink">{shipping === 0 ? 'Complimentary' : `$${shipping.toFixed(2)}`}</span>
             </div>
-            {subtotal < 50 && subtotal > 0 && (
-              <p className="text-xs text-rose-500">Add ${(50 - subtotal).toFixed(2)} more for free shipping</p>
+            {step === 'checkout' && (
+              <div className="flex justify-between text-ink-mid">
+                <span>Tax</span>
+                <span className="text-ink">${tax.toFixed(2)}</span>
+              </div>
+            )}
+            {subtotal < 75 && (
+              <p className="text-xs text-pink-500 pt-1">Add ${(75 - subtotal).toFixed(2)} for free shipping</p>
             )}
           </div>
-          <div className="flex justify-between mb-6">
-            <span className="text-mauve-700 font-medium">Total</span>
-            <span className="text-2xl text-mauve-700">${total.toFixed(2)}</span>
+          <div className="flex justify-between mb-6 pt-4 border-t border-nude-200">
+            <span className="font-medium text-ink">Total</span>
+            <span className="font-display text-3xl text-ink">${(step === 'checkout' ? total : subtotal + shipping).toFixed(2)}</span>
           </div>
-          <Link href="/checkout" className="btn-primary w-full justify-center">
-            Checkout <ArrowRight size={14} />
-          </Link>
-          <Link href="/products" className="block text-center text-sm text-mauve-500 mt-4 hover:text-mauve-700">
-            Continue shopping
-          </Link>
+          {step === 'cart' ? (
+            <button onClick={() => setStep('checkout')} className="btn-primary w-full">
+              Proceed to checkout <ArrowRight size={14} />
+            </button>
+          ) : (
+            <button type="submit" form="checkout-form" disabled={submitting} className="btn-primary w-full disabled:opacity-60">
+              {submitting ? 'Processing...' : `Place order · $${total.toFixed(2)}`}
+            </button>
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      {...props}
+      className={`w-full px-4 py-3.5 bg-white border border-nude-300 text-sm text-ink placeholder:text-ink-light focus:border-ink ${props.className ?? ''}`}
+    />
   );
 }

@@ -1,66 +1,44 @@
-# Setup Guide — Lumière E-commerce
+# Setup Guide — Glow Beauty
 
 Follow these steps to run the project locally and deploy it to Vercel.
 
 ## 1. Prerequisites
 
-- Install **Node.js 18 or newer**: https://nodejs.org
-- Install **VS Code** (recommended editor): https://code.visualstudio.com
-- A **GitHub** account (you already have one)
-- A **Vercel** account (you already have one)
+- **Node.js 18+**: https://nodejs.org
+- **VS Code**: https://code.visualstudio.com
+- GitHub account
+- Vercel account
 
-## 2. Set up the project locally
+## 2. Run the project locally
 
-Open a terminal in the project folder and run:
+In the project folder:
 
 ```bash
 npm install
-```
-
-This downloads all dependencies. It may take 1-2 minutes.
-
-Then start the dev server:
-
-```bash
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser. The site should be running.
+Open http://localhost:3000
 
-## 3. Push the project to GitHub
-
-In the project folder, open a terminal and run:
+## 3. Push to GitHub
 
 ```bash
 git init
 git add .
-git commit -m "Initial commit — Lumière e-commerce"
-```
-
-Then go to GitHub and create a new **empty** repository (do not add a README, .gitignore, or license).
-
-Copy the repo URL and run:
-
-```bash
-git remote add origin https://github.com/YOUR_USERNAME/lumiere-ecommerce.git
+git commit -m "Initial commit"
+git remote add origin https://github.com/YOUR_USERNAME/glow-beauty.git
 git branch -M main
 git push -u origin main
 ```
 
 ## 4. Deploy to Vercel
 
-1. Go to https://vercel.com and sign in with GitHub.
-2. Click **Add New → Project**.
-3. Find your `lumiere-ecommerce` repo and click **Import**.
-4. Leave all default settings (Vercel auto-detects Next.js).
-5. Click **Deploy**.
-
-In about 60-90 seconds your site will be live at a URL like:
-`https://lumiere-ecommerce.vercel.app`
+1. Go to vercel.com and sign in with GitHub
+2. Add New → Project → select your `glow-beauty` repo
+3. Leave default settings → Deploy
+4. Live URL ready in ~90 seconds
 
 ## 5. Future updates
-
-Whenever you change something locally:
 
 ```bash
 git add .
@@ -68,25 +46,57 @@ git commit -m "describe your change"
 git push
 ```
 
-Vercel will automatically redeploy your site within a minute.
+Vercel auto-deploys within a minute.
 
-## Troubleshooting
+## What's included
 
-**`npm install` fails**
-Make sure you have Node.js 18 or newer. Run `node -v` to check.
+### 10 pages
+- Home (with all 8 sections)
+- Shop all
+- Product detail
+- 5 category pages
+- Cart + Checkout
+- Order confirmation
+- About Us
+- Contact Us
+- Offers / Sale
+- Search results
 
-**Images don't load**
-Check your internet connection. Images come from Unsplash.
+### 4 API endpoints
+- `/api/products` — products with filters
+- `/api/orders` — order creation
+- `/api/contact` — contact form
+- `/api/reviews` — customer reviews
 
-**Build fails on Vercel**
-Run `npm run build` locally first to catch errors before pushing.
+### 20 products across 5 categories
+- Lipsticks (4)
+- Foundation (4)
+- Eyeshadow (4)
+- Skincare (4)
+- Brushes (4)
+
+Some products have shades, discounts, badges (NEW, BESTSELLER, SALE), ratings, and reviews.
+
+## Testing the flow
+
+To make sure everything works:
+
+1. Open `localhost:3000`
+2. Click "Shop the collection" → see all products
+3. Hover any product → click "Quick add" → cart drawer opens
+4. Click cart icon → see drawer
+5. Click "Checkout" → fill the form with any data → click "Place order"
+6. Land on the success page with an order number
+7. Visit `/api/orders` in the browser → see your order in JSON
+8. Try the search bar in the navbar
+9. Visit `/about`, `/contact`, `/offers`
 
 ## What to show your teacher
 
-1. The **live URL** on Vercel
-2. The **GitHub repository** with all code
-3. The **README.md** in the repo (explains architecture)
-4. A walk-through of: browsing products → adding to cart → checkout → success page
-5. Open the browser DevTools Network tab and show that `/api/orders` is a real POST request hitting your backend
+1. The **live Vercel URL**
+2. The **GitHub repository**
+3. Full purchase flow video (1-2 min)
+4. Open DevTools → Network tab → show real `POST /api/orders` request
+5. Open `/api/products` in the browser → show backend JSON response
 
-Good luck with your project!
+Good luck!
