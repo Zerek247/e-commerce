@@ -175,7 +175,7 @@ export const products: Product[] = [
     price: 26,
     shortDescription: 'Wearable shimmer in a creamy formula',
     description: 'A crease-proof cream eyeshadow with a buildable shimmer finish. Glides on smoothly and sets to a long-wearing finish.',
-    image: '/images/products/eye-003.svg',
+    image: '/images/products/eye-003.webp',
     badge: 'NEW',
     shades: ['Champagne', 'Rose Gold', 'Soft Bronze', 'Pearl'],
     rating: 4.7,
