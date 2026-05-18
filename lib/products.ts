@@ -148,7 +148,7 @@ export const products: Product[] = [
     price: 62,
     shortDescription: '12 silky neutrals for endless looks',
     description: 'A curated palette of 12 buttery-soft eyeshadows in warm neutrals, soft pinks, and dreamy shimmers. Highly pigmented and blendable for everyday to evening looks.',
-    image: '/images/products/eye-001.svg',
+    image: '/images/products/eye-001.webp',
     badge: 'BESTSELLER',
     rating: 4.9,
     reviewCount: 1567,
