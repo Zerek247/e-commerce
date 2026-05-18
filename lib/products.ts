@@ -162,7 +162,7 @@ export const products: Product[] = [
     originalPrice: 72,
     shortDescription: '9 deep tones for the perfect smoky eye',
     description: 'A nine-shade palette designed to master the smoky eye. From soft taupes to deep onyx, every shade is highly pigmented and crease-resistant.',
-    image: '/images/products/eye-002.svg',
+    image: '/images/products/eye-002.webp',
     badge: 'SALE',
     rating: 4.8,
     reviewCount: 834,
