@@ -134,7 +134,7 @@ export const products: Product[] = [
     price: 38,
     shortDescription: 'Translucent powder for a soft-focus finish',
     description: 'A finely-milled translucent setting powder that blurs imperfections and sets makeup for a long-wearing, soft-focus finish.',
-    image: '/images/products/fnd-004.svg',
+    image: '/images/products/fnd-004.webp',
     rating: 4.6,
     reviewCount: 478,
   },
