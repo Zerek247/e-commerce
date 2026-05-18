@@ -189,7 +189,7 @@ export const products: Product[] = [
     price: 26,
     shortDescription: 'Length, volume, and lift without clumps',
     description: 'A buildable mascara that delivers dramatic length and volume without clumps or flakes. The curved brush lifts and separates each lash for a wide-eyed finish.',
-    image: '/images/products/eye-004.svg',
+    image: '/images/products/eye-004.webp',
     rating: 4.8,
     reviewCount: 1102,
   },
