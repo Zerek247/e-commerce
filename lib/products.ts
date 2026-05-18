@@ -120,7 +120,7 @@ export const products: Product[] = [
     price: 48,
     shortDescription: 'Sheer coverage with skincare benefits',
     description: 'A breathable skin tint that evens skin tone while delivering active skincare. Niacinamide and squalane work to improve skin over time.',
-    image: '/images/products/fnd-003.svg',
+    image: '/images/products/fnd-003.webp',
     badge: 'NEW',
     ingredients: 'Niacinamide, squalane, hyaluronic acid',
     rating: 4.8,
