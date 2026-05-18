@@ -87,7 +87,7 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-5">
           {categories.map((cat, idx) => {
             const imgs: Record<string, string> = {
-              lipsticks: '/images/categories/lipsticks.svg',
+              lipsticks: '/images/categories/lipsticks.webp',
               foundation: '/images/categories/foundation.svg',
               eyeshadow: '/images/categories/eyeshadow.svg',
               skincare: '/images/categories/skincare.svg',
