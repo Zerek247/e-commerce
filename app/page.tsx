@@ -88,7 +88,7 @@ export default function HomePage() {
           {categories.map((cat, idx) => {
             const imgs: Record<string, string> = {
               lipsticks: '/images/categories/lipsticks.webp',
-              foundation: '/images/categories/foundation.svg',
+              foundation: '/images/categories/foundation.webp',
               eyeshadow: '/images/categories/eyeshadow.svg',
               skincare: '/images/categories/skincare.svg',
               brushes: '/images/categories/brushes.svg',
