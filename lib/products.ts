@@ -49,7 +49,7 @@ export const products: Product[] = [
     originalPrice: 28,
     shortDescription: 'Sheer, dewy color with a high-shine finish',
     description: 'A lightweight lip tint that delivers a sheer wash of color with a glossy, plump finish. Non-sticky formula enriched with peptides to enhance natural lip fullness.',
-    image: '/images/products/lip-002.svg',
+    image: '/images/products/lip-002.webp',
     badge: 'SALE',
     shades: ['Peach Blossom', 'Cherry Blush', 'Honey Nude'],
     rating: 4.8,
