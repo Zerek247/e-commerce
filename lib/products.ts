@@ -106,7 +106,7 @@ export const products: Product[] = [
     originalPrice: 62,
     shortDescription: 'Full coverage matte for a flawless finish',
     description: 'A full-coverage matte foundation with a soft-focus, velvet finish. Oil-controlling formula stays flawless for up to 16 hours without transferring.',
-    image: '/images/products/fnd-002.svg',
+    image: '/images/products/fnd-002.webp',
     badge: 'SALE',
     shades: ['Light', 'Light-Medium', 'Medium', 'Tan', 'Deep'],
     rating: 4.7,
