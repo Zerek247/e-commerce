@@ -298,7 +298,7 @@ export const products: Product[] = [
     price: 28,
     shortDescription: 'Tapered tip for seamless eyeshadow blending',
     description: 'A tapered, fluffy brush designed for seamlessly blending eyeshadows in the crease and outer corner.',
-    image: '/images/products/br-004.svg',
+    image: '/images/products/br-004.webp',
     rating: 4.7,
     reviewCount: 198,
   },
