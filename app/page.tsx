@@ -91,7 +91,7 @@ export default function HomePage() {
               foundation: '/images/categories/foundation.webp',
               eyeshadow: '/images/categories/eyeshadow.webp',
               skincare: '/images/categories/skincare.webp',
-              brushes: '/images/categories/brushes.svg',
+              brushes: '/images/categories/brushes.webp',
             };
             return (
               <Link
