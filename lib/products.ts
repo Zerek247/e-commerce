@@ -244,7 +244,7 @@ export const products: Product[] = [
     price: 64,
     shortDescription: 'Rich overnight mask for plump skin',
     description: 'A rich, indulgent overnight mask that works while you sleep. Wake up to plump, glowing, refreshed skin every morning.',
-    image: '/images/products/skin-004.svg',
+    image: '/images/products/skin-004.webp',
     ingredients: 'Squalane, ceramides, peptides',
     rating: 4.8,
     reviewCount: 729,
