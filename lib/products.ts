@@ -203,7 +203,7 @@ export const products: Product[] = [
     price: 68,
     shortDescription: 'Hyaluronic acid serum for a dewy glow',
     description: 'A lightweight serum with three molecular weights of hyaluronic acid to hydrate skin at every level. Leaves skin plump, dewy, and glowing.',
-    image: '/images/products/skin-001.svg',
+    image: '/images/products/skin-001.webp',
     badge: 'BESTSELLER',
     ingredients: 'Hyaluronic acid, niacinamide, vitamin B5',
     rating: 4.9,
