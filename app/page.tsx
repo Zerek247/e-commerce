@@ -90,7 +90,7 @@ export default function HomePage() {
               lipsticks: '/images/categories/lipsticks.webp',
               foundation: '/images/categories/foundation.webp',
               eyeshadow: '/images/categories/eyeshadow.webp',
-              skincare: '/images/categories/skincare.svg',
+              skincare: '/images/categories/skincare.webp',
               brushes: '/images/categories/brushes.svg',
             };
             return (
