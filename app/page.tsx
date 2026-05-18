@@ -13,7 +13,7 @@ export default function HomePage() {
       {/* HERO BANNER */}
       <section className="relative min-h-[600px] h-[90vh] max-h-[900px] overflow-hidden bg-pink-gradient">
         <Image
-          src="https://images.unsplash.com/photo-1522335789203-aaa2f6e9c84e?w=1800&h=1200&fit=crop&q=80"
+          src="/images/page/hero.svg"
           alt="Glow Beauty hero"
           fill
           sizes="100vw"
@@ -86,11 +86,11 @@ export default function HomePage() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-5">
           {categories.map((cat, idx) => {
             const imgs: Record<string, string> = {
-              lipsticks: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&h=800&fit=crop&q=80',
-              foundation: 'https://images.unsplash.com/photo-1631214540242-3cd8c4b0b3b6?w=600&h=800&fit=crop&q=80',
-              eyeshadow: 'https://images.unsplash.com/photo-1583241800698-9c2e0c4b0540?w=600&h=800&fit=crop&q=80',
-              skincare: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=600&h=800&fit=crop&q=80',
-              brushes: 'https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=600&h=800&fit=crop&q=80',
+              lipsticks: '/images/categories/lipsticks.svg',
+              foundation: '/images/categories/foundation.svg',
+              eyeshadow: '/images/categories/eyeshadow.svg',
+              skincare: '/images/categories/skincare.svg',
+              brushes: '/images/categories/brushes.svg',
             };
             return (
               <Link
@@ -142,7 +142,7 @@ export default function HomePage() {
       <section className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative aspect-square md:aspect-auto md:min-h-[600px]">
           <Image
-            src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1200&h=1200&fit=crop&q=80"
+            src="/images/page/ritual.svg"
             alt="The ritual"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
