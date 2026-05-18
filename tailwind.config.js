@@ -7,29 +7,42 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Primary text & dark accents — warm plum (replaces pure black)
         ink: {
-          DEFAULT: '#0A0A0A',
-          soft: '#1A1A1A',
-          mid: '#3D3D3D',
-          light: '#6B6B6B',
+          DEFAULT: '#2A1822',
+          soft: '#3D2531',
+          mid: '#5E3A4B',
+          light: '#8A6975',
         },
+        // Soft pink-beige neutrals (was "nude")
         nude: {
-          50: '#FBF8F5',
-          100: '#F5EFE8',
-          200: '#EBE0D3',
-          300: '#DDC9B5',
-          400: '#C9AB8E',
-          500: '#A8876A',
+          50: '#FFF9F6',
+          100: '#FDEFEB',
+          200: '#FADDD3',
+          300: '#F4C0B0',
+          400: '#E89A85',
+          500: '#D17560',
         },
+        // Brand pink — modern, vibrant rose
         pink: {
-          50: '#FDF6F4',
-          100: '#FAE9E6',
-          200: '#F5D3CD',
-          300: '#EDB4AB',
-          400: '#E08B7E',
-          500: '#C66A5C',
+          50: '#FFF5F8',
+          100: '#FFE6EF',
+          200: '#FFCBDE',
+          300: '#FFA3C5',
+          400: '#FF6FA3',
+          500: '#FF3D7F',
+          600: '#E8266B',
+          700: '#C01856',
         },
-        bone: '#FAF7F2',
+        // Warm cream background (was "bone")
+        bone: '#FFF9F6',
+        // Optional fuchsia accent
+        rose: {
+          50: '#FFF0F7',
+          100: '#FFD9EA',
+          500: '#EC4899',
+          600: '#DB2777',
+        },
       },
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
@@ -38,6 +51,14 @@ module.exports = {
       },
       letterSpacing: {
         widest: '0.25em',
+      },
+      boxShadow: {
+        soft: '0 4px 20px -8px rgba(255, 61, 127, 0.15)',
+        glow: '0 10px 40px -10px rgba(255, 61, 127, 0.25)',
+      },
+      backgroundImage: {
+        'pink-gradient': 'linear-gradient(135deg, #FFE6EF 0%, #FFCBDE 100%)',
+        'rose-gradient': 'linear-gradient(135deg, #FF6FA3 0%, #FF3D7F 100%)',
       },
     },
   },

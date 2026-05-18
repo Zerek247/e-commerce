@@ -7,56 +7,59 @@ export const metadata = { title: 'About — Glow Beauty' };
 export default function AboutPage() {
   return (
     <div className="fade-in">
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden bg-nude-100">
+      <section className="relative min-h-[400px] h-[60vh] max-h-[600px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1800&h=1000&fit=crop"
+          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1800&h=1000&fit=crop&q=80"
           alt="Our story"
           fill
           sizes="100vw"
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-ink/40" />
-        <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/60 via-pink-500/30 to-ink/60" />
+        <div className="absolute inset-0 flex items-center justify-center text-center px-5 sm:px-6">
           <div className="text-white">
-            <p className="text-[11px] tracking-[0.4em] uppercase text-white/80 mb-4">About us</p>
-            <h1 className="font-display text-5xl md:text-7xl text-white">Our story</h1>
+            <p className="text-[10px] sm:text-[11px] tracking-[0.4em] uppercase text-pink-200 mb-3 sm:mb-4 font-semibold">About us</p>
+            <h1 className="font-display text-fluid-hero text-white">
+              Our <span className="italic font-serif text-pink-200">story</span>
+            </h1>
           </div>
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <p className="eyebrow mb-5">Founded in 2024</p>
-        <h2 className="font-display text-4xl md:text-5xl text-ink mb-8 leading-tight">
-          Beauty crafted with intention
+      <section className="max-w-3xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-24 text-center">
+        <p className="eyebrow mb-4 sm:mb-5">Founded in 2024</p>
+        <h2 className="font-display text-fluid-h2 text-ink mb-6 sm:mb-8 leading-tight">
+          Beauty crafted with <span className="italic font-serif text-pink-500">intention</span>
         </h2>
-        <p className="text-ink-mid leading-relaxed text-lg mb-6 font-light">
+        <p className="text-ink-mid leading-relaxed text-base sm:text-lg mb-6 font-light">
           Glow Beauty was born from a simple belief: that beauty rituals should feel like a gift to yourself.
           A moment of stillness in the morning. A celebration in the evening. A reminder, every day, of your own light.
         </p>
-        <p className="text-ink-mid leading-relaxed text-lg font-light">
+        <p className="text-ink-mid leading-relaxed text-base sm:text-lg font-light">
           We craft luxury formulas with clean, powerful ingredients. We design packaging that feels timeless.
           We curate shades that celebrate every skin. And we do it all in small batches, by hand, in our atelier.
         </p>
       </section>
 
-      <section className="bg-bone py-20">
-        <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="relative aspect-[4/5]">
+      <section className="bg-pink-gradient py-16 sm:py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-pink-300/40 blur-3xl" />
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative">
+          <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-glow">
             <Image
-              src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=1000&fit=crop"
+              src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=1000&fit=crop&q=80"
               alt="Our atelier"
               fill
-              sizes="50vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
           <div>
-            <p className="eyebrow mb-4">Our promise</p>
-            <h2 className="font-display text-4xl text-ink mb-6 leading-tight">
-              Every detail, considered
+            <p className="eyebrow mb-3 sm:mb-4">Our promise</p>
+            <h2 className="font-display text-3xl sm:text-4xl text-ink mb-6 leading-tight">
+              Every detail, <span className="italic font-serif text-pink-500">considered</span>
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-5 sm:space-y-6">
               {[
                 { icon: Leaf, title: 'Clean formulations', text: 'Free of parabens, sulfates, phthalates, and harsh chemicals. Always.' },
                 { icon: Heart, title: 'Cruelty free, vegan', text: 'Never tested on animals. All our formulas are 100% vegan.' },
@@ -64,12 +67,12 @@ export default function AboutPage() {
                 { icon: Sparkles, title: 'Inclusive shades', text: 'Designed and developed with all skin tones in mind, always.' },
               ].map(({ icon: Icon, title, text }) => (
                 <div key={title} className="flex gap-4">
-                  <div className="w-10 h-10 border border-ink rounded-full flex items-center justify-center flex-shrink-0">
-                    <Icon size={16} strokeWidth={1.5} className="text-ink" />
+                  <div className="w-11 h-11 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-soft">
+                    <Icon size={18} strokeWidth={1.5} className="text-pink-500" />
                   </div>
                   <div>
-                    <h3 className="font-display text-xl text-ink mb-1">{title}</h3>
-                    <p className="text-sm text-ink-mid leading-relaxed">{text}</p>
+                    <h3 className="font-display text-lg sm:text-xl text-ink mb-1">{title}</h3>
+                    <p className="text-sm text-ink-soft leading-relaxed">{text}</p>
                   </div>
                 </div>
               ))}
@@ -78,17 +81,18 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto px-6 py-24 text-center">
-        <p className="font-serif italic text-3xl md:text-4xl text-ink leading-relaxed mb-8">
-          "Beauty is not what you put on. It is what you reveal."
+      <section className="max-w-3xl mx-auto px-5 sm:px-6 py-16 sm:py-20 md:py-24 text-center">
+        <p className="font-serif italic text-2xl sm:text-3xl md:text-4xl text-ink leading-relaxed mb-6 sm:mb-8">
+          "Beauty is not what you put on. It is what you <span className="text-pink-500">reveal</span>."
         </p>
         <p className="eyebrow">Camille Laurent, Founder</p>
       </section>
 
-      <section className="bg-ink text-white py-20 text-center">
-        <div className="max-w-xl mx-auto px-6">
-          <h2 className="font-display text-4xl md:text-5xl text-white mb-5">Begin your ritual</h2>
-          <p className="text-white/70 mb-10">Explore the collection crafted just for you.</p>
+      <section className="bg-gradient-to-br from-ink via-ink-soft to-ink text-white py-16 sm:py-20 text-center relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-pink-500/10 blur-3xl" />
+        <div className="max-w-xl mx-auto px-5 sm:px-6 relative">
+          <h2 className="font-display text-fluid-h2 text-white mb-4 sm:mb-5">Begin your <span className="italic font-serif text-pink-300">ritual</span></h2>
+          <p className="text-white/70 mb-8 sm:mb-10 text-sm sm:text-base">Explore the collection crafted just for you.</p>
           <Link href="/products" className="btn-light">
             Shop the collection <ArrowRight size={14} />
           </Link>
