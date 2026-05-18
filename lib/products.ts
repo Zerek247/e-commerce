@@ -63,7 +63,7 @@ export const products: Product[] = [
     price: 30,
     shortDescription: 'Bold, transfer-proof color in one stroke',
     description: 'A long-wearing liquid lipstick that glides on smoothly and dries to a comfortable velvet finish. Transfer-proof and waterproof for up to 12 hours.',
-    image: '/images/products/lip-003.svg',
+    image: '/images/products/lip-003.webp',
     badge: 'NEW',
     shades: ['Mauve', 'Rose', 'Plum', 'Nude', 'Burgundy'],
     rating: 4.7,
