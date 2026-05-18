@@ -91,7 +91,7 @@ export const products: Product[] = [
     price: 56,
     shortDescription: 'Medium coverage with a dewy, skin-like finish',
     description: 'A lightweight, buildable foundation that delivers medium coverage with a luminous, skin-like finish. Available in 40 shades. Infused with hyaluronic acid for all-day hydration.',
-    image: '/images/products/fnd-001.svg',
+    image: '/images/products/fnd-001.webp',
     badge: 'BESTSELLER',
     shades: ['Porcelain', 'Ivory', 'Beige', 'Honey', 'Caramel', 'Espresso'],
     rating: 4.9,
