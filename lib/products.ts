@@ -231,7 +231,7 @@ export const products: Product[] = [
     price: 58,
     shortDescription: 'Brightening cream with stabilized vitamin C',
     description: 'A daily brightening cream with stabilized vitamin C and licorice root extract to even skin tone, fade dark spots, and boost radiance.',
-    image: '/images/products/skin-003.svg',
+    image: '/images/products/skin-003.webp',
     badge: 'NEW',
     rating: 4.8,
     reviewCount: 412,
