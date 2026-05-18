@@ -77,7 +77,7 @@ export const products: Product[] = [
     price: 18,
     shortDescription: 'Nourishing balm with a subtle pink tint',
     description: 'A deeply hydrating lip balm with a hint of natural pink tint. Made with shea butter, coconut oil, and rosehip extract for soft, supple lips.',
-    image: '/images/products/lip-004.svg',
+    image: '/images/products/lip-004.webp',
     rating: 4.6,
     reviewCount: 567,
   },
