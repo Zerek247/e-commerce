@@ -285,7 +285,7 @@ export const products: Product[] = [
     price: 42,
     shortDescription: 'Dense, flat brush for seamless coverage',
     description: 'A densely-packed flat brush designed for an even, streak-free application of liquid and cream foundations.',
-    image: '/images/products/br-003.svg',
+    image: '/images/products/br-003.webp',
     badge: 'NEW',
     rating: 4.8,
     reviewCount: 245,
