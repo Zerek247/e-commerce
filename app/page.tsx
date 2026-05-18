@@ -13,14 +13,15 @@ export default function HomePage() {
       {/* HERO BANNER */}
       <section className="relative min-h-[600px] h-[90vh] max-h-[900px] overflow-hidden bg-pink-gradient">
         <Image
-          src="/images/page/hero.svg"
-          alt="Glow Beauty hero"
+          src="/images/page/hero.webp"
+          alt="Glow Beauty hero — luxury beauty essentials"
           fill
           sizes="100vw"
           priority
+          quality={90}
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-ink/60 via-ink/30 to-pink-500/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/55 via-ink/20 to-transparent" />
 
         {/* Floating decorative elements */}
         <div className="hidden md:block absolute top-20 right-20 w-32 h-32 rounded-full bg-pink-300/30 blur-3xl float" />
