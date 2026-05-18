@@ -89,7 +89,7 @@ export default function HomePage() {
             const imgs: Record<string, string> = {
               lipsticks: '/images/categories/lipsticks.webp',
               foundation: '/images/categories/foundation.webp',
-              eyeshadow: '/images/categories/eyeshadow.svg',
+              eyeshadow: '/images/categories/eyeshadow.webp',
               skincare: '/images/categories/skincare.svg',
               brushes: '/images/categories/brushes.svg',
             };
