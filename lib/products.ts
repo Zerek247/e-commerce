@@ -273,7 +273,7 @@ export const products: Product[] = [
     price: 38,
     shortDescription: 'Soft-focus powder application',
     description: 'A large, fluffy brush designed for an even, soft-focus application of powders. Made with premium synthetic fibers.',
-    image: '/images/products/br-002.svg',
+    image: '/images/products/br-002.webp',
     rating: 4.7,
     reviewCount: 312,
   },
