@@ -260,7 +260,7 @@ export const products: Product[] = [
     originalPrice: 165,
     shortDescription: 'The 8 brushes every kit needs',
     description: 'A curated set of 8 essential brushes for face and eyes, crafted from soft synthetic fibers and finished with rose gold ferrules. Includes a luxury vegan leather pouch.',
-    image: '/images/products/br-001.svg',
+    image: '/images/products/br-001.webp',
     badge: 'BESTSELLER',
     rating: 4.9,
     reviewCount: 956,
