@@ -218,7 +218,7 @@ export const products: Product[] = [
     originalPrice: 52,
     shortDescription: 'Gentle toner with real rose petals',
     description: 'A gentle, alcohol-free toner infused with real rose petals and witch hazel to soothe, balance, and refresh skin without stripping.',
-    image: '/images/products/skin-002.svg',
+    image: '/images/products/skin-002.webp',
     badge: 'SALE',
     rating: 4.7,
     reviewCount: 567,
