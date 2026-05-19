@@ -4,6 +4,7 @@ import { CartProvider } from '@/lib/cart-context';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
+import FormMessages from '@/components/FormMessages';
 
 export const metadata: Metadata = {
   title: 'Glow Beauty — Reveal your natural beauty',
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <CartProvider>
+          <FormMessages />
           <Navbar />
           <CartDrawer />
           <main className="min-h-screen">{children}</main>
