@@ -9,14 +9,15 @@ export default function AboutPage() {
     <div className="fade-in">
       <section className="relative min-h-[400px] h-[60vh] max-h-[600px] overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1800&h=1000&fit=crop&q=80"
+          src="/images/page/about-hero.webp"
           alt="Our story"
           fill
           sizes="100vw"
+          quality={90}
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-ink/60 via-pink-500/30 to-ink/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/55 via-pink-500/25 to-ink/55" />
         <div className="absolute inset-0 flex items-center justify-center text-center px-5 sm:px-6">
           <div className="text-white">
             <p className="text-[10px] sm:text-[11px] tracking-[0.4em] uppercase text-pink-200 mb-3 sm:mb-4 font-semibold">About us</p>
