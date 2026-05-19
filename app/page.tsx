@@ -143,7 +143,7 @@ export default function HomePage() {
       <section className="grid grid-cols-1 md:grid-cols-2">
         <div className="relative aspect-square md:aspect-auto md:min-h-[600px]">
           <Image
-            src="/images/page/ritual.svg"
+            src="/images/page/ritual.webp"
             alt="The ritual"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
