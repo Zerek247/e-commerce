@@ -37,16 +37,18 @@ export default function ProductCard({ product }: { product: Product }) {
           <button
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               setWishlist(!wishlist);
             }}
             aria-label="Wishlist"
-            className="absolute top-3 right-3 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-ink hover:text-pink-500 transition-all shadow-sm hover:shadow-md"
+            className="absolute top-3 right-3 w-9 h-9 sm:w-9 sm:h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-ink hover:text-pink-500 transition-all shadow-sm hover:shadow-md z-10"
           >
-            <Heart size={14} strokeWidth={1.5} className={wishlist ? 'fill-pink-500 text-pink-500' : ''} />
+            <Heart size={15} strokeWidth={1.5} className={wishlist ? 'fill-pink-500 text-pink-500' : ''} />
           </button>
           <button
-            onClick={(e) => { e.preventDefault(); addItem(product); }}
-            className="absolute bottom-3 left-3 right-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 sm:py-3 text-[10px] sm:text-[11px] tracking-widest uppercase font-bold translate-y-[120%] group-hover:translate-y-0 transition-transform duration-300 rounded-full shadow-md"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product); }}
+            aria-label="Add to bag"
+            className="absolute bottom-3 left-3 right-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 sm:py-3 text-[10px] sm:text-[11px] tracking-widest uppercase font-bold rounded-full shadow-md z-10 translate-y-0 md:translate-y-[120%] md:group-hover:translate-y-0 transition-transform duration-300"
           >
             + Quick add
           </button>
