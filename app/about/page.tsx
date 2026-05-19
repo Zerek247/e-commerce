@@ -48,10 +48,11 @@ export default function AboutPage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center relative">
           <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-glow">
             <Image
-              src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&h=1000&fit=crop&q=80"
+              src="/images/page/promise.webp"
               alt="Our atelier"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
+              quality={90}
               className="object-cover"
             />
           </div>
