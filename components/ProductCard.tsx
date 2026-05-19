@@ -19,8 +19,8 @@ export default function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="group">
-      <Link href={`/products/${product.id}`}>
+    <div className="group flex flex-col h-full">
+      <Link href={`/products/${product.id}`} className="block">
         <div className="relative aspect-[4/5] bg-pink-50 overflow-hidden mb-3 sm:mb-4 rounded-2xl shadow-soft hover:shadow-glow transition-shadow duration-500">
           <Image
             src={product.image}
@@ -56,7 +56,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
       </Link>
 
-      <div className="space-y-1.5 px-1">
+      <div className="space-y-1.5 px-1 flex flex-col flex-1">
         <p className="text-[10px] tracking-[0.2em] uppercase text-pink-500 font-semibold">{product.categoryLabel}</p>
         <Link href={`/products/${product.id}`}>
           <h3 className="font-display text-base sm:text-lg text-ink hover:text-pink-500 leading-snug transition">{product.name}</h3>
@@ -82,14 +82,16 @@ export default function ProductCard({ product }: { product: Product }) {
           )}
         </div>
 
-        {/* Mobile-only Quick add (inline, below price — never overlaps image) */}
-        <button
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product); }}
-          aria-label="Add to bag"
-          className="md:hidden w-full mt-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 text-[10px] tracking-widest uppercase font-bold rounded-full shadow-md active:scale-95 transition-transform"
-        >
-          + Quick add
-        </button>
+        {/* Mobile-only Quick add — wrapper grows so the button always anchors to bottom and aligns across cards in the same row */}
+        <div className="md:hidden flex-1 flex items-end pt-3">
+          <button
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product); }}
+            aria-label="Add to bag"
+            className="w-full bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 text-[10px] tracking-widest uppercase font-bold rounded-full shadow-md active:scale-95 transition-transform"
+          >
+            + Quick add
+          </button>
+        </div>
       </div>
     </div>
   );
