@@ -2,16 +2,29 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, User, ShoppingBag, Menu, X, Heart } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Search, User, ShoppingBag, Menu, X, Heart, Home } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import { useState, FormEvent } from 'react';
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const { totalItems, setIsOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
+
+  const desktopLinks: { href: string; label: string; icon?: typeof Home; highlight?: boolean }[] = [
+    { href: '/', label: 'Home', icon: Home },
+    { href: '/products', label: 'Shop' },
+    { href: '/category/lipsticks', label: 'Lips' },
+    { href: '/category/foundation', label: 'Face' },
+    { href: '/category/eyeshadow', label: 'Eyes' },
+    { href: '/offers', label: '✦ Sale', highlight: true },
+  ];
+
+  const isActive = (href: string) => (href === '/' ? pathname === '/' : pathname?.startsWith(href));
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
@@ -60,12 +73,32 @@ export default function Navbar() {
               />
             </button>
 
-            <ul className="hidden md:flex gap-6 lg:gap-8 text-[11px] tracking-widest uppercase text-ink-mid font-semibold">
-              <li><Link href="/products" className="hover:text-pink-500 transition">Shop</Link></li>
-              <li><Link href="/category/lipsticks" className="hover:text-pink-500 transition">Lips</Link></li>
-              <li><Link href="/category/foundation" className="hover:text-pink-500 transition">Face</Link></li>
-              <li><Link href="/category/eyeshadow" className="hover:text-pink-500 transition">Eyes</Link></li>
-              <li><Link href="/offers" className="text-pink-500 hover:text-pink-600 transition">✦ Sale</Link></li>
+            <ul className="hidden md:flex gap-5 lg:gap-7 text-[12px] lg:text-[13px] tracking-[0.2em] uppercase text-ink-mid font-semibold">
+              {desktopLinks.map((link) => {
+                const Icon = link.icon;
+                const active = isActive(link.href);
+                const baseColor = link.highlight
+                  ? 'text-pink-500 hover:text-pink-600'
+                  : active
+                  ? 'text-pink-500'
+                  : 'text-ink-soft hover:text-pink-500';
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className={`group relative inline-flex items-center gap-1.5 py-1 transition ${baseColor}`}
+                    >
+                      {Icon && <Icon size={14} strokeWidth={2} />}
+                      <span>{link.label}</span>
+                      <span
+                        className={`absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-gradient-to-r from-pink-400 to-pink-600 transition-transform duration-300 origin-left ${
+                          active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                        }`}
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
