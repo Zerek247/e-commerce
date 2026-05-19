@@ -45,10 +45,11 @@ export default function ProductCard({ product }: { product: Product }) {
           >
             <Heart size={15} strokeWidth={1.5} className={wishlist ? 'fill-pink-500 text-pink-500' : ''} />
           </button>
+          {/* Desktop-only overlay Quick add (slides in on hover) */}
           <button
             onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product); }}
             aria-label="Add to bag"
-            className="absolute bottom-3 left-3 right-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 sm:py-3 text-[10px] sm:text-[11px] tracking-widest uppercase font-bold rounded-full shadow-md z-10 translate-y-0 md:translate-y-[120%] md:group-hover:translate-y-0 transition-transform duration-300"
+            className="hidden md:flex items-center justify-center absolute bottom-3 left-3 right-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-3 text-[11px] tracking-widest uppercase font-bold rounded-full shadow-md z-10 translate-y-[120%] group-hover:translate-y-0 transition-transform duration-300"
           >
             + Quick add
           </button>
@@ -80,6 +81,15 @@ export default function ProductCard({ product }: { product: Product }) {
             <span className="text-ink font-semibold text-base sm:text-lg">${product.price.toFixed(2)}</span>
           )}
         </div>
+
+        {/* Mobile-only Quick add (inline, below price — never overlaps image) */}
+        <button
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); addItem(product); }}
+          aria-label="Add to bag"
+          className="md:hidden w-full mt-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white py-2.5 text-[10px] tracking-widest uppercase font-bold rounded-full shadow-md active:scale-95 transition-transform"
+        >
+          + Quick add
+        </button>
       </div>
     </div>
   );
