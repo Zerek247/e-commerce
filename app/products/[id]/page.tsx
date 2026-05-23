@@ -245,7 +245,7 @@ export default function ProductDetailPage() {
               },
               {
                 name: 'Yasmine A.',
-                location: 'Marrakech · Verified buyer',
+                location: 'Beni Mellal · Verified buyer',
                 rating: 5,
                 title: 'My new favorite',
                 text: 'Perfect shade, lasts all day, and feels weightless. The shipping was so fast and the unboxing was a whole experience. Highly recommend.',
