@@ -1,11 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { Search, User, ShoppingBag, Menu, X, Heart, Home } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useMemo } from 'react';
+import { searchProducts } from '@/lib/products';
 
 export default function Navbar() {
   const router = useRouter();
@@ -33,6 +35,16 @@ export default function Navbar() {
       setSearchOpen(false);
       setQuery('');
     }
+  };
+
+  const liveResults = useMemo(() => {
+    if (query.trim().length < 2) return [];
+    return searchProducts(query).slice(0, 6);
+  }, [query]);
+
+  const closeSearch = () => {
+    setSearchOpen(false);
+    setQuery('');
   };
 
   const mobileLinks = [
@@ -133,24 +145,83 @@ export default function Navbar() {
         {/* SEARCH BAR */}
         <div
           className={`overflow-hidden transition-[max-height,opacity] duration-400 ease-out ${
-            searchOpen ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'
+            searchOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="border-t border-pink-100 bg-white">
             <form onSubmit={handleSearch} className="max-w-[1400px] mx-auto px-5 sm:px-6 py-4 flex items-center gap-3">
-              <Search size={18} strokeWidth={1.5} className="text-pink-500" />
+              <Search size={18} strokeWidth={1.5} className="text-pink-500 shrink-0" />
               <input
                 type="text"
+                autoFocus={searchOpen}
                 placeholder="Search for products, ingredients, or shades..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="flex-1 bg-transparent text-sm placeholder:text-ink-light text-ink border-0 px-0"
                 style={{ borderRadius: 0 }}
               />
-              <button type="button" onClick={() => setSearchOpen(false)} className="text-ink-mid hover:text-pink-500">
+              <button type="button" onClick={closeSearch} className="text-ink-mid hover:text-pink-500 shrink-0">
                 <X size={18} strokeWidth={1.5} />
               </button>
             </form>
+
+            {/* Live results dropdown */}
+            {query.trim().length >= 2 && (
+              <div className="border-t border-pink-100 max-w-[1400px] mx-auto px-3 sm:px-4 pb-3">
+                {liveResults.length === 0 ? (
+                  <div className="px-4 py-8 text-center text-sm text-ink-light">
+                    No products match <span className="italic text-ink">"{query}"</span>. Try another keyword.
+                  </div>
+                ) : (
+                  <>
+                    <p className="px-3 pt-3 pb-2 text-[10px] tracking-[0.25em] uppercase text-pink-500 font-semibold">
+                      Top {liveResults.length} {liveResults.length === 1 ? 'result' : 'results'}
+                    </p>
+                    <ul className="divide-y divide-pink-50">
+                      {liveResults.map((p) => (
+                        <li key={p.id}>
+                          <Link
+                            href={`/products/${p.id}`}
+                            onClick={closeSearch}
+                            className="flex items-center gap-3 sm:gap-4 px-3 py-2.5 rounded-xl hover:bg-pink-50/60 transition"
+                          >
+                            <div className="relative w-12 h-14 sm:w-14 sm:h-16 bg-pink-50 rounded-lg overflow-hidden shrink-0">
+                              <Image
+                                src={p.image}
+                                alt={p.name}
+                                fill
+                                sizes="56px"
+                                className="object-cover"
+                              />
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-[10px] tracking-[0.2em] uppercase text-pink-500 font-semibold">{p.categoryLabel}</p>
+                              <p className="font-display text-sm sm:text-base text-ink truncate">{p.name}</p>
+                            </div>
+                            <div className="text-right shrink-0">
+                              {p.originalPrice ? (
+                                <>
+                                  <p className="text-sm font-bold text-pink-600">${p.price.toFixed(2)}</p>
+                                  <p className="text-[11px] line-through text-ink-light">${p.originalPrice.toFixed(2)}</p>
+                                </>
+                              ) : (
+                                <p className="text-sm font-semibold text-ink">${p.price.toFixed(2)}</p>
+                              )}
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={(e) => { e.preventDefault(); handleSearch(e as unknown as FormEvent); }}
+                      className="block w-full text-center text-[11px] tracking-[0.25em] uppercase text-pink-500 hover:text-pink-600 py-3 mt-1 border-t border-pink-50 font-semibold"
+                    >
+                      See all results →
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

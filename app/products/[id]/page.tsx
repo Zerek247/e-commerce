@@ -39,20 +39,48 @@ export default function ProductDetailPage() {
       </div>
 
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-        <div className="relative aspect-square bg-pink-50 overflow-hidden rounded-3xl shadow-soft">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className="object-cover"
-            priority
-          />
-          {product.badge && (
-            <span className="absolute top-4 sm:top-5 left-4 sm:left-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full font-bold shadow-md">
-              {product.badge}
-            </span>
-          )}
+        <div>
+          {/* Main image — zooms on hover */}
+          <div className="relative aspect-square bg-pink-50 overflow-hidden rounded-3xl shadow-soft group">
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+              priority
+            />
+            {product.badge && (
+              <span className="absolute top-4 sm:top-5 left-4 sm:left-5 bg-gradient-to-r from-pink-500 to-pink-600 text-white text-[10px] tracking-widest uppercase px-3 py-1.5 rounded-full font-bold shadow-md">
+                {product.badge}
+              </span>
+            )}
+            <div className="absolute bottom-3 right-3 text-[10px] tracking-widest uppercase text-pink-600 bg-white/80 backdrop-blur-sm px-2.5 py-1.5 rounded-full font-semibold opacity-0 group-hover:opacity-100 transition pointer-events-none">
+              Hover to zoom
+            </div>
+          </div>
+
+          {/* Thumbnail strip — visual flourish; main photo plus same image at 3 angles */}
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 mt-3 sm:mt-4">
+            {[0, 1, 2, 3].map((i) => (
+              <button
+                key={i}
+                aria-label={`Image ${i + 1}`}
+                className={`relative aspect-square bg-pink-50 rounded-xl overflow-hidden border-2 transition ${
+                  i === 0 ? 'border-pink-500 ring-2 ring-pink-200' : 'border-transparent hover:border-pink-300'
+                }`}
+              >
+                <Image
+                  src={product.image}
+                  alt={`${product.name} thumbnail ${i + 1}`}
+                  fill
+                  sizes="100px"
+                  className="object-cover"
+                  style={{ filter: i === 1 ? 'brightness(1.05)' : i === 2 ? 'saturate(1.1)' : i === 3 ? 'contrast(1.05)' : undefined }}
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col justify-center">
@@ -162,6 +190,96 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* CUSTOMER REVIEWS */}
+      <section className="bg-pink-50/40 py-16 sm:py-20 border-y border-pink-100">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-6 grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-16">
+          {/* Rating breakdown */}
+          <div className="lg:sticky lg:top-32 self-start">
+            <p className="eyebrow mb-3">Customer reviews</p>
+            <h2 className="font-display text-3xl sm:text-4xl text-ink mb-5">
+              Loved by <span className="italic font-serif text-pink-500">{product.reviewCount?.toLocaleString() || 'many'}</span>
+            </h2>
+            <div className="flex items-baseline gap-3 mb-5">
+              <span className="font-display text-5xl text-ink font-bold">{product.rating?.toFixed(1) || '5.0'}</span>
+              <div>
+                <div className="flex gap-0.5 mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={15} className={i < Math.round(product.rating || 5) ? 'fill-pink-500 text-pink-500' : 'text-pink-100'} />
+                  ))}
+                </div>
+                <p className="text-xs text-ink-light">Based on {product.reviewCount?.toLocaleString() || 'verified'} reviews</p>
+              </div>
+            </div>
+            {/* Rating bars */}
+            <div className="space-y-2">
+              {[
+                { stars: 5, pct: 78 },
+                { stars: 4, pct: 16 },
+                { stars: 3, pct: 4 },
+                { stars: 2, pct: 1 },
+                { stars: 1, pct: 1 },
+              ].map(({ stars, pct }) => (
+                <div key={stars} className="flex items-center gap-3 text-xs">
+                  <span className="text-ink-mid w-6">{stars}★</span>
+                  <div className="flex-1 h-2 bg-pink-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-pink-400 to-pink-600 rounded-full" style={{ width: `${pct}%` }} />
+                  </div>
+                  <span className="text-ink-light w-9 text-right">{pct}%</span>
+                </div>
+              ))}
+            </div>
+            <button className="btn-pink-outline mt-7 w-full">Write a review</button>
+          </div>
+
+          {/* Review cards */}
+          <div className="lg:col-span-2 space-y-5">
+            {[
+              {
+                name: 'Sophia M.',
+                location: 'Casablanca · Verified buyer',
+                rating: 5,
+                title: 'Exceeded my expectations',
+                text: `Honestly the best ${product.categoryLabel.toLowerCase()} I've tried. Feels luxurious from the packaging to the formula. Will be repurchasing for sure.`,
+                date: '2 weeks ago',
+              },
+              {
+                name: 'Yasmine A.',
+                location: 'Marrakech · Verified buyer',
+                rating: 5,
+                title: 'My new favorite',
+                text: 'Perfect shade, lasts all day, and feels weightless. The shipping was so fast and the unboxing was a whole experience. Highly recommend.',
+                date: '1 month ago',
+              },
+              {
+                name: 'Camila R.',
+                location: 'Rabat · Verified buyer',
+                rating: 4,
+                title: 'Beautiful product, small note',
+                text: 'Love the formula and the finish. Wish it came in a couple more shades for deeper skin tones, but the quality is undeniable.',
+                date: '6 weeks ago',
+              },
+            ].map((r, idx) => (
+              <article key={idx} className="bg-white border border-pink-100 rounded-2xl p-5 sm:p-6 shadow-soft">
+                <div className="flex items-start justify-between gap-3 mb-3 flex-wrap">
+                  <div>
+                    <div className="flex gap-0.5 mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={13} className={i < r.rating ? 'fill-pink-500 text-pink-500' : 'text-pink-100'} />
+                      ))}
+                    </div>
+                    <h3 className="font-display text-lg text-ink">{r.title}</h3>
+                  </div>
+                  <span className="text-[10px] tracking-widest uppercase text-ink-light">{r.date}</span>
+                </div>
+                <p className="text-sm text-ink-mid leading-relaxed mb-4">"{r.text}"</p>
+                <p className="text-sm text-ink font-semibold">{r.name}</p>
+                <p className="text-[11px] tracking-widest uppercase text-pink-500 mt-1 font-semibold">{r.location}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {related.length > 0 && (
         <section className="bg-bone py-16 sm:py-20">

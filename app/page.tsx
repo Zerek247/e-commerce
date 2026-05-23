@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import ProductCard from '@/components/ProductCard';
-import { categories, getBestsellers, getOnSale, reviews } from '@/lib/products';
+import { categories, getBestsellers, getOnSale, reviews, getProductsByCategory } from '@/lib/products';
 import { ArrowRight, Star, Leaf, Heart, Sparkles, Award } from 'lucide-react';
 
 export default function HomePage() {
@@ -93,6 +93,7 @@ export default function HomePage() {
               skincare: '/images/categories/skincare.webp',
               brushes: '/images/categories/brushes.webp',
             };
+            const count = getProductsByCategory(cat.slug).length;
             return (
               <Link
                 key={cat.slug}
@@ -109,8 +110,11 @@ export default function HomePage() {
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent group-hover:from-pink-500/30 transition-all duration-500" />
+                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm text-pink-600 text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full font-bold shadow-sm">
+                    {count} {count === 1 ? 'item' : 'items'}
+                  </span>
                 </div>
-                <h3 className="font-display text-lg sm:text-xl text-ink text-center">{cat.label}</h3>
+                <h3 className="font-display text-lg sm:text-xl text-ink text-center group-hover:text-pink-500 transition">{cat.label}</h3>
                 <p className="text-xs text-ink-light text-center mt-1 px-2">{cat.description}</p>
               </Link>
             );
