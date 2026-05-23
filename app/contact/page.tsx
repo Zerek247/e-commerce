@@ -63,8 +63,8 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-ink font-semibold mb-1">Phone</p>
-                  <p>+1 (555) 247-3346</p>
-                  <p className="text-xs text-ink-light mt-1">Mon–Fri · 9am–6pm EST</p>
+                  <p>+212 5 24 38 47 92</p>
+                  <p className="text-xs text-ink-light mt-1">Mon–Fri · 9am–6pm GMT+1</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 text-ink-mid">
@@ -73,7 +73,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-ink font-semibold mb-1">Atelier</p>
-                  <p>247 Mercer Street<br />New York, NY 10012</p>
+                  <p>Riad Glow Beauty<br />15 Rue Sidi Bouloukat<br />Marrakech 40000, Maroc</p>
                 </div>
               </div>
             </div>
