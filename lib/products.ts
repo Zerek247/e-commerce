@@ -104,7 +104,7 @@ export const products: Product[] = [
     price: 22,
     shortDescription: 'Creamy, long-wearing liner for defined lips',
     description: 'A retractable lip liner with a creamy, glide-on formula that defines and shapes the lips. Long-wearing and smudge-proof, designed to pair seamlessly with our lipsticks.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/lip-006.webp',
     shades: ['Nude', 'Rose', 'Mauve', 'Berry', 'Red'],
     rating: 4.7,
     reviewCount: 195,
