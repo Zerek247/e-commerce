@@ -19,8 +19,12 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [tab, setTab] = useState<'description' | 'ingredients' | 'how'>('description');
   const [wishlist, setWishlist] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
   if (!product) return notFound();
+
+  const gallery = [product.image, ...(product.gallery ?? [])];
+  const mainImage = gallery[Math.min(activeImage, gallery.length - 1)];
 
   const handleAdd = () => {
     for (let i = 0; i < quantity; i++) addItem(product);
@@ -40,14 +44,15 @@ export default function ProductDetailPage() {
 
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 py-8 sm:py-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
         <div>
-          {/* Main image — zooms on hover */}
+          {/* Main image — zooms on hover, swaps when a thumbnail is clicked */}
           <div className="relative aspect-square bg-pink-50 overflow-hidden rounded-3xl shadow-soft group">
             <Image
-              src={product.image}
+              key={mainImage}
+              src={mainImage}
               alt={product.name}
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-110 fade-in"
               priority
             />
             {product.badge && (
@@ -60,27 +65,32 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Thumbnail strip — visual flourish; main photo plus same image at 3 angles */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-3 mt-3 sm:mt-4">
-            {[0, 1, 2, 3].map((i) => (
-              <button
-                key={i}
-                aria-label={`Image ${i + 1}`}
-                className={`relative aspect-square bg-pink-50 rounded-xl overflow-hidden border-2 transition ${
-                  i === 0 ? 'border-pink-500 ring-2 ring-pink-200' : 'border-transparent hover:border-pink-300'
-                }`}
-              >
-                <Image
-                  src={product.image}
-                  alt={`${product.name} thumbnail ${i + 1}`}
-                  fill
-                  sizes="100px"
-                  className="object-cover"
-                  style={{ filter: i === 1 ? 'brightness(1.05)' : i === 2 ? 'saturate(1.1)' : i === 3 ? 'contrast(1.05)' : undefined }}
-                />
-              </button>
-            ))}
-          </div>
+          {/* Clickable thumbnail strip — only shows when there's more than one image */}
+          {gallery.length > 1 && (
+            <div className="grid grid-cols-4 gap-2 sm:gap-3 mt-3 sm:mt-4">
+              {gallery.map((src, i) => (
+                <button
+                  key={src + i}
+                  onClick={() => setActiveImage(i)}
+                  aria-label={`View image ${i + 1}`}
+                  aria-pressed={activeImage === i}
+                  className={`relative aspect-square bg-pink-50 rounded-xl overflow-hidden border-2 transition ${
+                    activeImage === i
+                      ? 'border-pink-500 ring-2 ring-pink-200'
+                      : 'border-transparent hover:border-pink-300 opacity-80 hover:opacity-100'
+                  }`}
+                >
+                  <Image
+                    src={src}
+                    alt={`${product.name} — image ${i + 1}`}
+                    fill
+                    sizes="120px"
+                    className="object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col justify-center">

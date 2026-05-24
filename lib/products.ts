@@ -8,6 +8,8 @@ export type Product = {
   description: string;
   shortDescription: string;
   image: string;
+  /** Extra images shown as clickable thumbnails on the product detail page (alongside `image`). */
+  gallery?: string[];
   badge?: 'NEW' | 'BESTSELLER' | 'LIMITED' | 'SALE';
   ingredients?: string;
   shades?: string[];
@@ -34,6 +36,11 @@ export const products: Product[] = [
     shortDescription: 'A weightless matte finish in our most-loved nudes',
     description: 'Our signature matte lipstick delivers rich, saturated color with a soft, blurred finish. Infused with hyaluronic acid and vitamin E to keep lips hydrated and comfortable for up to 8 hours of wear. Crafted in Italy.',
     image: '/images/products/lip-001.webp',
+    gallery: [
+      '/images/products/lip-001-2.webp',
+      '/images/products/lip-001-3.webp',
+      '/images/products/lip-001-4.webp',
+    ],
     badge: 'BESTSELLER',
     ingredients: 'Hyaluronic acid, vitamin E, jojoba oil, shea butter',
     shades: ['Bare', 'Rose Petal', 'Dusty Mauve', 'Berry Kiss', 'Classic Red'],
