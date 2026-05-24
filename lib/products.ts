@@ -285,7 +285,7 @@ export const products: Product[] = [
     price: 24,
     shortDescription: 'Felt-tip liner for crisp, intense lines',
     description: 'A long-wearing liquid eyeliner with an ultra-fine felt tip that delivers crisp, even lines from a delicate wisp to a bold wing. Waterproof and smudge-proof for up to 24 hours.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/eye-005.webp',
     badge: 'BESTSELLER',
     shades: ['Onyx', 'Espresso', 'Plum'],
     rating: 4.9,
