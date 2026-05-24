@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
+import { useWishlist } from '@/lib/wishlist-context';
 import { Star, Heart } from 'lucide-react';
-import { useState } from 'react';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
-  const [wishlist, setWishlist] = useState(false);
+  const { has, toggle } = useWishlist();
+  const wishlist = has(product.id);
 
   const badgeColors: Record<string, string> = {
     NEW: 'bg-ink text-white',
@@ -38,9 +39,10 @@ export default function ProductCard({ product }: { product: Product }) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              setWishlist(!wishlist);
+              toggle(product.id);
             }}
-            aria-label="Wishlist"
+            aria-label={wishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+            aria-pressed={wishlist}
             className="absolute top-3 right-3 w-9 h-9 sm:w-9 sm:h-9 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center text-ink hover:text-pink-500 transition-all shadow-sm hover:shadow-md z-10"
           >
             <Heart size={15} strokeWidth={1.5} className={wishlist ? 'fill-pink-500 text-pink-500' : ''} />

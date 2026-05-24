@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { notFound, useParams, useRouter } from 'next/navigation';
 import { getProductById, products } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
+import { useWishlist } from '@/lib/wishlist-context';
 import ProductCard from '@/components/ProductCard';
 import { ChevronLeft, Heart, Truck, Shield, RefreshCw, Check, Star, Minus, Plus } from 'lucide-react';
 
@@ -15,11 +16,11 @@ export default function ProductDetailPage() {
   const id = params.id as string;
   const product = getProductById(id);
   const { addItem } = useCart();
+  const { has: hasWish, toggle: toggleWish } = useWishlist();
   const [added, setAdded] = useState(false);
   const [selectedShade, setSelectedShade] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [tab, setTab] = useState<'description' | 'ingredients' | 'how'>('description');
-  const [wishlist, setWishlist] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
 
   if (!product) return notFound();
@@ -182,11 +183,12 @@ export default function ProductDetailPage() {
               {added ? (<><Check size={14} /> Added</>) : 'Add to bag'}
             </button>
             <button
-              onClick={() => setWishlist(!wishlist)}
+              onClick={() => toggleWish(product.id)}
               className="border border-pink-200 hover:border-pink-500 hover:bg-pink-50 p-3.5 rounded-full transition"
-              aria-label="Wishlist"
+              aria-label={hasWish(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+              aria-pressed={hasWish(product.id)}
             >
-              <Heart size={16} strokeWidth={1.5} className={wishlist ? 'fill-pink-500 text-pink-500' : 'text-ink'} />
+              <Heart size={16} strokeWidth={1.5} className={hasWish(product.id) ? 'fill-pink-500 text-pink-500' : 'text-ink'} />
             </button>
           </div>
 

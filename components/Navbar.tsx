@@ -4,8 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { Search, User, ShoppingBag, Menu, X, Heart, Home } from 'lucide-react';
+import { Search, Mail, ShoppingBag, Menu, X, Heart, Home } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
+import { useWishlist } from '@/lib/wishlist-context';
 import { useState, FormEvent, useMemo } from 'react';
 import { searchProducts } from '@/lib/products';
 
@@ -13,6 +14,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { totalItems, setIsOpen } = useCart();
+  const { count: wishlistCount } = useWishlist();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
@@ -55,6 +57,7 @@ export default function Navbar() {
     { href: '/category/skincare', label: 'Skincare' },
     { href: '/category/brushes', label: 'Brushes' },
     { href: '/offers', label: '✦ Sale', highlight: true },
+    { href: '/wishlist', label: 'Wishlist' },
     { href: '/about', label: 'About us', divider: true },
     { href: '/contact', label: 'Contact' },
   ];
@@ -125,11 +128,16 @@ export default function Navbar() {
             <button onClick={() => setSearchOpen(!searchOpen)} className="hover:text-pink-500 transition" aria-label="Search">
               <Search size={18} strokeWidth={1.75} />
             </button>
-            <Link href="/about" className="hidden md:block hover:text-pink-500 transition" aria-label="Account">
-              <User size={18} strokeWidth={1.75} />
+            <Link href="/contact" className="hidden md:block hover:text-pink-500 transition" aria-label="Contact us">
+              <Mail size={18} strokeWidth={1.75} />
             </Link>
-            <Link href="/cart" className="hidden md:block hover:text-pink-500 transition" aria-label="Wishlist">
-              <Heart size={18} strokeWidth={1.75} />
+            <Link href="/wishlist" className="hidden md:block relative hover:text-pink-500 transition" aria-label="Wishlist">
+              <Heart size={18} strokeWidth={1.75} className={wishlistCount > 0 ? 'fill-pink-500 text-pink-500' : ''} />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gradient-to-br from-pink-500 to-pink-600 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold shadow-md">
+                  {wishlistCount}
+                </span>
+              )}
             </Link>
             <button onClick={() => setIsOpen(true)} className="relative hover:text-pink-500 transition" aria-label="Cart">
               <ShoppingBag size={18} strokeWidth={1.75} />

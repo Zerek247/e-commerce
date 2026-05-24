@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { CartProvider } from '@/lib/cart-context';
+import { WishlistProvider } from '@/lib/wishlist-context';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CartDrawer from '@/components/CartDrawer';
@@ -24,12 +25,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <CartProvider>
-          <FormMessages />
-          <RouteTransition />
-          <Navbar />
-          <CartDrawer />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <WishlistProvider>
+            <FormMessages />
+            <RouteTransition />
+            <Navbar />
+            <CartDrawer />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>
