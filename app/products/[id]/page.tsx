@@ -49,8 +49,11 @@ export default function ProductDetailPage() {
   return (
     <div className="fade-in">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 pt-5 sm:pt-6">
-        <Link href="/products" className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] uppercase tracking-widest text-ink-mid hover:text-pink-500 transition font-semibold">
-          <ChevronLeft size={14} /> Back
+        <Link
+          href={`/category/${product.category}`}
+          className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] uppercase tracking-widest text-ink-mid hover:text-pink-500 transition font-semibold"
+        >
+          <ChevronLeft size={14} /> Back to {product.categoryLabel}
         </Link>
       </div>
 
