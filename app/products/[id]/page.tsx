@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound, useParams } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 import { getProductById, products } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
 import ProductCard from '@/components/ProductCard';
@@ -11,6 +11,7 @@ import { ChevronLeft, Heart, Truck, Shield, RefreshCw, Check, Star, Minus, Plus 
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const id = params.id as string;
   const product = getProductById(id);
   const { addItem } = useCart();
@@ -51,9 +52,18 @@ export default function ProductDetailPage() {
       <div className="max-w-[1400px] mx-auto px-5 sm:px-6 pt-5 sm:pt-6">
         <Link
           href={`/category/${product.category}`}
+          onClick={(e) => {
+            // Prefer browser back so the shopper returns to whichever list they came
+            // from (All products, a category, search results, etc.). Fall back to the
+            // category page only if there's no in-app history to go back to.
+            if (typeof window !== 'undefined' && window.history.length > 1) {
+              e.preventDefault();
+              router.back();
+            }
+          }}
           className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] uppercase tracking-widest text-ink-mid hover:text-pink-500 transition font-semibold"
         >
-          <ChevronLeft size={14} /> Back to {product.categoryLabel}
+          <ChevronLeft size={14} /> Back
         </Link>
       </div>
 
