@@ -299,7 +299,7 @@ export const products: Product[] = [
     price: 20,
     shortDescription: 'Dual-ended pencil for natural, hair-like brows',
     description: 'A retractable micro-tip brow pencil paired with a spoolie brush. Builds natural, hair-like strokes that fade into the brow for a fuller, defined look that lasts all day.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/eye-006.webp',
     shades: ['Blonde', 'Taupe', 'Brunette', 'Auburn', 'Ebony'],
     rating: 4.7,
     reviewCount: 354,
