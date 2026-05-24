@@ -434,7 +434,7 @@ export const products: Product[] = [
     price: 32,
     shortDescription: 'Tapered fan brush for a precise, lit-from-within glow',
     description: 'A delicately-shaped fan brush designed to sweep highlighter onto the high points of the face with precision. Crafted with ultra-soft synthetic fibers and a rose gold ferrule.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/br-005.webp',
     badge: 'NEW',
     rating: 4.8,
     reviewCount: 167,
