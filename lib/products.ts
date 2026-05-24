@@ -188,7 +188,7 @@ export const products: Product[] = [
     price: 34,
     shortDescription: 'Creamy stick for effortless contour and sculpting',
     description: 'A creamy, blendable contour stick that glides on smoothly and melts into the skin for a natural, sun-sculpted finish. Easy enough for beginners, refined for pros.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/fnd-006.webp',
     shades: ['Fair', 'Light', 'Medium', 'Tan', 'Deep'],
     rating: 4.7,
     reviewCount: 248,
