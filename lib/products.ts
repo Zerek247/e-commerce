@@ -174,7 +174,7 @@ export const products: Product[] = [
     price: 42,
     shortDescription: 'Silky powder highlighter for a lit-from-within glow',
     description: 'A finely-milled, buildable powder highlighter that delivers a soft, glass-like glow without glitter or harsh sparkle. Blends seamlessly on all skin tones.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/fnd-005.webp',
     badge: 'NEW',
     shades: ['Champagne', 'Rose Gold', 'Pearl', 'Bronze'],
     rating: 4.8,
