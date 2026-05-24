@@ -89,7 +89,7 @@ export const products: Product[] = [
     price: 26,
     shortDescription: 'Nourishing high-shine oil with a subtle tint',
     description: 'A weightless lip oil that delivers a glossy, mirror-like shine and a wash of color. Infused with jojoba and rosehip oils to deeply nourish dry lips without stickiness.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/lip-005.webp',
     badge: 'NEW',
     ingredients: 'Jojoba oil, rosehip oil, vitamin E, squalane',
     shades: ['Clear', 'Peach', 'Rose', 'Berry'],
