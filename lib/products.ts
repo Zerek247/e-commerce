@@ -202,7 +202,7 @@ export const products: Product[] = [
     originalPrice: 46,
     shortDescription: 'Warm, buildable bronzer for a sun-kissed glow',
     description: 'A silky pressed bronzer that adds warmth and dimension to the face. Buildable from a soft wash to a deep sculpted finish. Talc-free and skin-loving.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/fnd-007.webp',
     badge: 'BESTSELLER',
     shades: ['Light', 'Medium', 'Tan', 'Deep'],
     rating: 4.9,
