@@ -216,7 +216,7 @@ export const products: Product[] = [
     price: 32,
     shortDescription: 'Fine-mist spray that locks in makeup with a dewy finish',
     description: 'A weightless setting spray that locks in makeup for up to 16 hours while delivering a fresh, dewy finish. Infused with hyaluronic acid and aloe to hydrate as it sets.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/fnd-008.webp',
     badge: 'NEW',
     ingredients: 'Hyaluronic acid, aloe vera, glycerin',
     rating: 4.7,
