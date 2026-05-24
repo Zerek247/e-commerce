@@ -312,7 +312,7 @@ export const products: Product[] = [
     price: 18,
     shortDescription: 'Reusable wispy lashes for a wide-awake look',
     description: 'Lightweight, reusable false lashes crafted with synthetic fibers on a flexible cotton band. Wispy, fluttery, and comfortable for all-day wear. Up to 25 uses.',
-    image: '/images/products/placeholder.svg',
+    image: '/images/products/eye-007.webp',
     badge: 'NEW',
     rating: 4.6,
     reviewCount: 142,
