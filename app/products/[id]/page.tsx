@@ -23,7 +23,19 @@ export default function ProductDetailPage() {
 
   if (!product) return notFound();
 
-  const gallery = [product.image, ...(product.gallery ?? [])];
+  // Build the gallery: explicit override on the product, otherwise auto-derive
+  // {id}-2.webp / -3.webp / -4.webp neighbours of the main image (the build step
+  // generates these from the hero photo so every product has 4 thumbnails).
+  const buildAutoGallery = (img: string): string[] => {
+    const m = img.match(/^(.*)\.(webp|jpg|jpeg|png)$/i);
+    if (!m) return [];
+    const [, base, ext] = m;
+    return [`${base}-2.${ext}`, `${base}-3.${ext}`, `${base}-4.${ext}`];
+  };
+  const extras = product.gallery && product.gallery.length > 0
+    ? product.gallery
+    : buildAutoGallery(product.image);
+  const gallery = [product.image, ...extras];
   const mainImage = gallery[Math.min(activeImage, gallery.length - 1)];
 
   const handleAdd = () => {
